@@ -1,7 +1,8 @@
 use crate::{
+    ansi::STYLE_RESET,
     cfg::Score,
     character::Character,
-    speaking::{prompt_wait, ChatSequence},
+    speaking::{colors::STYLE_IMPORTANT, format_name, prompt_wait, ChatSequence},
 };
 
 use rand::seq::SliceRandom;
@@ -25,7 +26,12 @@ impl<T: Character> Game<T> {
     }
     pub fn play(mut self) -> bool {
         self.character.print_backstory();
-        println!("Help {} realize the DANGERS OF CONFORMITY!", T::NAME);
+        println!(
+            "Help {} realize the {}DANGERS OF CONFORMITY!{}",
+            format_name(T::NAME),
+            STYLE_IMPORTANT,
+            STYLE_RESET
+        );
         prompt_wait();
 
         while let Some(chat_seq) = self.chat_pool.draw(self.score, CHATSEQ_DRAW_RADIUS) {

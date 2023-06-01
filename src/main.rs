@@ -1,5 +1,6 @@
 use crate::{character::edna::Edna, game::Game};
 
+mod ansi;
 mod cfg;
 mod character;
 mod game;

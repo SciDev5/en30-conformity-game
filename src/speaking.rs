@@ -1,30 +1,59 @@
 use std::io::BufRead;
 
-use crate::{cfg::Score, character::Character};
+use crate::{ansi::STYLE_RESET, cfg::Score, character::Character};
+
+pub mod colors;
+use colors::*;
 
 pub struct YouSpeaker;
 impl Speaker for YouSpeaker {
     const NAME: &'static str = "YOU";
 }
 
+pub fn format_name(name: &str) -> String {
+    format!("{}{name}{}", STYLE_NAME, STYLE_RESET)
+}
+
 pub trait Speaker {
     const NAME: &'static str;
 
     fn say(&self, text: String) {
-        println!("{}: \"{text}\"", Self::NAME);
+        println!(
+            "{}: \"{}{text}{}\"",
+            format_name(Self::NAME),
+            STYLE_SAY,
+            STYLE_RESET
+        );
     }
     fn prompt_from(&self, prompt: String, responses: Vec<String>) -> usize {
-        println!("{} asks, \"{prompt}\"", Self::NAME);
+        println!(
+            "{} asks, \"{}{prompt}{}\"",
+            format_name(Self::NAME),
+            STYLE_SAY,
+            STYLE_RESET
+        );
         for (i, response) in responses.iter().enumerate() {
-            println!("{} :: \"{}\"", i + 1, response)
+            println!(
+                "{} :: \"{}{}{}\"",
+                i + 1,
+                STYLE_RESPONSE_OPT,
+                response,
+                STYLE_RESET
+            );
         }
 
         prompt_raw(responses)
     }
     fn prompt_to(&self, responses: Vec<String>) -> usize {
-        println!("You tell {} ...", Self::NAME);
+        println!("You tell {} ...", format_name(Self::NAME));
         for (i, response) in responses.iter().enumerate() {
-            println!("{} \"{}\"", i + 1, response)
+            println!(
+                "{} \"{}{}{}\"",
+                i + 1,
+                STYLE_RESPONSE_OPT,
+                response,
+                STYLE_RESET
+            )
         }
 
         prompt_raw(responses)
@@ -45,8 +74,10 @@ fn prompt_raw(responses: Vec<String>) -> usize {
             }
         }
         println!(
-            "Enter the number corresponding to the response [1 - {}].",
-            responses.len()
+            "{}Enter the number corresponding to the response [1 - {}].{}",
+            STYLE_PLAYER_INSTRUCTIONS,
+            responses.len(),
+            STYLE_RESET,
         );
     };
 
@@ -63,7 +94,10 @@ pub fn prompt_wait() {
         .read_line(&mut read_in)
         .expect("Failed to read stdin");
     if !read_in.trim().is_empty() {
-        println!(" !! input ignored !!  now is not the time to speak.");
+        println!(
+            "{} !! input ignored !!  now is not the time to speak.{}",
+            STYLE_PLAYER_INSTRUCTIONS, STYLE_RESET
+        );
     }
 }
 

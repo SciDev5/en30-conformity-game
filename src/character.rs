@@ -1,4 +1,8 @@
-use crate::{game::ChatPool, speaking::Speaker};
+use crate::{
+    ansi::STYLE_RESET,
+    game::ChatPool,
+    speaking::{colors::STYLE_IMPORTANT, format_name, Speaker},
+};
 
 pub mod edna;
 
@@ -9,9 +13,9 @@ pub trait Character: Speaker {
     /// Print out the character's backstory.
     /// See [`Self::backstory()`].
     fn print_backstory(&self) {
-        println!("{}'s backstory:", Self::NAME);
+        println!("{}'s backstory:", format_name(Self::NAME));
         for line in self.backstory().lines() {
-            println!("| {}", line);
+            println!("| {}{}{}", STYLE_IMPORTANT, line, STYLE_RESET);
         }
         println!();
     }
