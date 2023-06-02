@@ -25,6 +25,14 @@ pub trait Speaker {
             STYLE_RESET
         );
     }
+    fn act(&self, text: String) {
+        println!(
+            "{} {}{text}{}",
+            format_name(Self::NAME),
+            STYLE_ACT,
+            STYLE_RESET
+        );
+    }
     fn prompt_from(&self, prompt: String, responses: Vec<String>) -> usize {
         println!(
             "{} asks, \"{}{prompt}{}\"",
@@ -120,12 +128,14 @@ impl Prompt {
 #[derive(Clone, Copy)]
 pub enum ChatSequenceLine {
     Player(&'static str),
+    CharacterDoes(&'static str),
     Character(&'static str),
 }
 impl ChatSequenceLine {
     fn show<T: Speaker>(&self, character_speaker: &T) {
         match self {
             ChatSequenceLine::Character(line) => character_speaker.say(line.to_string()),
+            ChatSequenceLine::CharacterDoes(line) => character_speaker.act(line.to_string()),
             ChatSequenceLine::Player(line) => YouSpeaker.say(line.to_string()),
         };
         prompt_wait();
