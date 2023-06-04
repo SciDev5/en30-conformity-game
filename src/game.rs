@@ -8,7 +8,7 @@ use crate::{
 use rand::seq::SliceRandom;
 
 const START_SCORE: Score = 0;
-const WIN_THRESHOLD: Score = 100;
+const WIN_THRESHOLD: Score = 80;
 const CHATSEQ_DRAW_RADIUS: Score = 50;
 
 pub struct Game<T: Character> {
