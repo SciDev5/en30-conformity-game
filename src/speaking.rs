@@ -4,6 +4,7 @@ use crate::{ansi::STYLE_RESET, cfg::Score, character::Character};
 
 pub mod colors;
 use colors::*;
+use rand::seq::SliceRandom;
 
 pub struct YouSpeaker;
 impl Speaker for YouSpeaker {
@@ -165,15 +166,17 @@ impl ChatSequence {
         for line in &self.leadup_chat {
             line.show(character);
         }
+        let mut responses = self.responses.clone();
+        responses.shuffle(&mut rand::thread_rng());
         let res_i = self.prompt.show(
             character,
-            self.responses
+            responses
                 .iter()
                 .map(|(_, response_text)| response_text.to_string())
                 .collect(),
         );
 
-        let (response_score_change, _) = self.responses[res_i];
+        let (response_score_change, _) = responses[res_i];
 
         response_score_change
     }

@@ -1,7 +1,7 @@
 use crate::{
-    ansi::{ANSIModifier::Italic, STYLE_RESET},
+    ansi::ANSIModifier::Italic,
     game::ChatPool,
-    speaking::{ChatSequence, ChatSequenceLine as Ln, Prompt, Speaker},
+    speaking::{ChatSequence, ChatSequenceLine as Ln, Prompt, Speaker, colors::STYLE_SUBTLE},
 };
 
 use super::Character;
@@ -13,7 +13,7 @@ impl Speaker for Edna {
 impl Character for Edna {
     fn origin_citation(&self) -> Option<String> {
         Some(
-            format!("\tChopin, Kate. {Italic}The Awakening{STYLE_RESET}. Penguin Books, 2018.")
+            format!("\tChopin, Kate. {Italic}The Awakening{STYLE_SUBTLE}. Penguin Books, 2018.")
                 .trim()
                 .to_string(),
         )
@@ -143,7 +143,7 @@ need to reinforce:
                     vec![
                         Ln::CharacterDoes(" sits, looking out the window, doodling a sketch."),
                         Ln::Character("I've been thinking about my place in society..."),
-                        Ln::Player("Think back to your old life, what else was good and what else was bad?"),
+                        Ln::Player("Well, then think back to your old life, what else was good and what else was bad?"),
                         Ln::Character("I was thinking about Adèle, she fits so well into society's definition of a mother-woman."),
                     ],
                     Prompt::FromCharacter("Adèle, everyone else, why do they all seem so complicit in effacing their personal identity to be mothers?"),

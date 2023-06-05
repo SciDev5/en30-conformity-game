@@ -7,7 +7,7 @@ mod game;
 mod speaking;
 
 fn main() {
-    println!("The Interdimensional Literary Figure Rescue Squad\u{2122}");
+    println!("\nWelcome to \nThe Interdimensional Literary Figure Rescue Squad\u{2122} \n\n");
 
     let won = Game::new(Edna).play();
 
