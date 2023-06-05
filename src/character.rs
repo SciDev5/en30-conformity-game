@@ -5,6 +5,7 @@ use crate::{
 };
 
 pub mod edna;
+pub mod niel;
 
 pub trait Character: Speaker {
     /// The work the character is from, in MLA format.

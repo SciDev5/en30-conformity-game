@@ -2,7 +2,7 @@ use crate::{
     ansi::STYLE_RESET,
     cfg::Score,
     character::Character,
-    game::intro::play_onboarding_conversation,
+    game::static_convos::{play_onboarding_conversation, play_win_conversation, play_lose_conversation},
     speaking::{
         colors::STYLE_IMPORTANT, format_name, prompt_wait, ChatSequence, Speaker, YouSpeaker,
     },
@@ -10,7 +10,7 @@ use crate::{
 
 use rand::seq::SliceRandom;
 
-mod intro;
+mod static_convos;
 
 const START_SCORE: Score = 0;
 const WIN_THRESHOLD: Score = 80;
@@ -57,10 +57,15 @@ impl<T: Character> Game<T> {
             "looking quite grim"
         }
     }
-    pub fn play(mut self) -> bool {
+    pub fn play(mut self) {
         play_onboarding_conversation();
+
+        println!("{}You were assigned to treat {}.", STYLE_IMPORTANT, T::NAME);
+        prompt_wait();
+        
         self.character.print_backstory();
         prompt_wait();
+
 
         YouSpeaker.say(format!("Hello, {}. I'm here to help. I know you've been through a lot so, I'm here for you!", T::NAME));
         prompt_wait();
@@ -87,7 +92,12 @@ impl<T: Character> Game<T> {
             self.score += delta_score;
             prompt_wait();
         }
-        self.score > WIN_THRESHOLD
+
+        if self.score > WIN_THRESHOLD {
+            play_win_conversation(self.character);
+        } else {
+            play_lose_conversation(self.character);
+        }
     }
 }
 

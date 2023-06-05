@@ -1,7 +1,7 @@
 use crate::{
     ansi::ANSIModifier::Italic,
     game::ChatPool,
-    speaking::{ChatSequence, ChatSequenceLine as Ln, Prompt, Speaker, colors::STYLE_SUBTLE},
+    speaking::{colors::STYLE_SUBTLE, ChatSequence, ChatSequenceLine as Ln, Prompt, Speaker},
 };
 
 use super::Character;
@@ -13,9 +13,12 @@ impl Speaker for Edna {
 impl Character for Edna {
     fn origin_citation(&self) -> Option<String> {
         Some(
-            format!("\tChopin, Kate. {Italic}The Awakening{STYLE_SUBTLE}. Penguin Books, 2018.")
-                .trim()
-                .to_string(),
+            format!(
+                "\tChopin, Kate. {}The Awakening{}. Penguin Books, 2018.",
+                Italic, STYLE_SUBTLE
+            )
+            .trim()
+            .to_string(),
         )
     }
     fn backstory(&self) -> &'static str {
@@ -33,21 +36,18 @@ exploration, and chose death as the only alternative.
 
 It may be possible to grant her a new life in
 modern times that suits her.
-"#
+"# // (Chopin)
         .trim()
     }
 
     fn generate_chat_pool(&self) -> ChatPool {
+        /*
+                need to reinforce:
+                - A :: art self expression, good
+                - B :: robert still values traditional values, and must be left behind (do not comprimise, live for love)
+                - C :: affirm conformity was bad for her, even if others seemed to like it
+        */
         ChatPool::new(vec![
-            /*
-
-need to reinforce:
-- A :: art self expression, good
-- B :: robert still values traditional values, and must be left behind (do not comprimise, live for love)
-- C :: affirm conformity was bad for her, even if others seemed to like it
-
-
-            */
             (
                 0,
                 ChatSequence::new( // Art can be used to express exporation
@@ -148,12 +148,12 @@ need to reinforce:
                     ],
                     Prompt::FromCharacter("Adèle, everyone else, why do they all seem so complicit in effacing their personal identity to be mothers?"),
                     vec![
-                    // Shows her that it's important not to fit into society's box, no matter what social pressures show.
-                    (30, "Some enjoy devoting everything to motherhood, but preferred lifestlyes vary, and it's imperative you live yours to the fullest."),
-                    // Ditto, but does not address the differences between people that make diversity and nonconformity matter.
-                    (20, "Does it matter? You're happier when you keep your freedom. You're no longer confined to their world anymore, live a little!"),
-                    // Forces Edna into a box, conter to what the freeing we're trying to accomplish. If you're choosing this option you have got to be stupid.
-                    (-40, "Because Adèle's conformist, traditionalist behavior keeps families healthy, something I know you value."),
+                        // Shows her that it's important not to fit into society's box, no matter what social pressures show.
+                        (30, "Some enjoy devoting everything to motherhood, but preferred lifestlyes vary, and it's imperative you live yours to the fullest."),
+                        // Ditto, but does not address the differences between people that make diversity and nonconformity matter.
+                        (20, "Does it matter? You're happier when you keep your freedom. You're no longer confined to their world anymore, live a little!"),
+                        // Forces Edna into a box, conter to what the freeing we're trying to accomplish. If you're choosing this option you have got to be stupid.
+                        (-40, "Because Adèle's conformist, traditionalist behavior keeps families healthy, something I know you value."),
                     ],
                 ),
             ),

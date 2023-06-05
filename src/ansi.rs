@@ -109,6 +109,7 @@ impl ANSIColor {
     pub const fn fg(self) -> ANSIColorDrawer {
         ANSIColorDrawer::Foreground(self)
     }
+    #[allow(unused)]
     pub const fn bg(self) -> ANSIColorDrawer {
         ANSIColorDrawer::Background(self)
     }
