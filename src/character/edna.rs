@@ -1,7 +1,7 @@
 use crate::{
     ansi::ANSIModifier::Italic,
     game::ChatPool,
-    speaking::{colors::STYLE_SUBTLE, ChatSequence, ChatSequenceLine as Ln, Prompt, Speaker},
+    speaking::{colors::STYLE_SUBTLE, ChatSequence, ChatSequenceLine::{CharacterSpeaks, CharacterDoes, PlayerSpeaks}, Prompt, Speaker},
 };
 
 use super::Character;
@@ -52,10 +52,10 @@ modern times that suits her.
                 0,
                 ChatSequence::new( // Art can be used to express exporation
                     vec![
-                        Ln::Player("What was something you do for fun? First thing to come to mind."),
-                        Ln::Character("Well, I like painting and listening to Mademoiselle Reisz's music."),
-                        Ln::Player("In that case, I would like to ask if you would want to paint your ideal life."),
-                        Ln::CharacterDoes("paints a scene depicting herself and a man sitting in two separate boats, holding hands over the water."),
+                        PlayerSpeaks("What was something you do for fun? First thing to come to mind."),
+                        CharacterSpeaks("Well, I like painting and listening to Mademoiselle Reisz's music."),
+                        PlayerSpeaks("In that case, I would like to ask if you would want to paint your ideal life."),
+                        CharacterDoes("paints a scene depicting herself and a man sitting in two separate boats, holding hands over the water."),
                         // symbol ocean -> freedom in romantic expression
                         // symbol separate boats -> separation of identity
                         // holding hands -> romance
@@ -77,9 +77,9 @@ modern times that suits her.
                 20,
                 ChatSequence::new( // Robert gave into conformity = bad
                     vec![
-                        Ln::Player("Do you still think about Robert?"),
-                        Ln::CharacterDoes("looks pensive, showing a mix of longing and betrayal."),
-                        Ln::Character("I think about him a lot, but it seems he doesn't want to go against the norms holding us down."),
+                        PlayerSpeaks("Do you still think about Robert?"),
+                        CharacterDoes("looks pensive, showing a mix of longing and betrayal."),
+                        CharacterSpeaks("I think about him a lot, but it seems he doesn't want to go against the norms holding us down."),
                     ],
                     Prompt::FromPlayer,
                     vec![
@@ -98,8 +98,8 @@ modern times that suits her.
                 40,
                 ChatSequence::new( // Motherhood vs sexual freedom & personality beyond marriage
                     vec![
-                        Ln::Character("They all are so blind to true love, especially Robert."),
-                        Ln::Player("Yeah, it does suck when society seems to make unwritten rules that just dont work with you."),
+                        CharacterSpeaks("They all are so blind to true love, especially Robert."),
+                        PlayerSpeaks("Yeah, it does suck when society seems to make unwritten rules that just dont work with you."),
                     ],
                     Prompt::FromCharacter("Why does society seem so focused on making it so I become a mother-woman?"),
                     vec![
@@ -116,11 +116,11 @@ modern times that suits her.
                 60,
                 ChatSequence::new( // Creation of art is closely tied to unconformity
                     vec![
-                        Ln::Character("Do you know about my art?"),
-                        Ln::CharacterDoes("is sketching a bird flying free in the sky on a peice of paper you gave her earlier."),
-                        Ln::Player("I would love to hear about it."),
-                        Ln::Character("I've been trying more and more to become an artist ever since my last summer trip to Grand Idle."),
-                        Ln::Player("Have you consiered the role of art in shaping your feelings?"),
+                        CharacterSpeaks("Do you know about my art?"),
+                        CharacterDoes("is sketching a bird flying free in the sky on a peice of paper you gave her earlier."),
+                        PlayerSpeaks("I would love to hear about it."),
+                        CharacterSpeaks("I've been trying more and more to become an artist ever since my last summer trip to Grand Idle."),
+                        PlayerSpeaks("Have you consiered the role of art in shaping your feelings?"),
                     ],
                     // It's a bit on-the-nose, but oh well.
                     Prompt::FromCharacter("No, not really... How is my art connected to my awakening?"),
@@ -141,10 +141,10 @@ modern times that suits her.
                 80,
                 ChatSequence::new( // Edna does not need to be a mother-woman, conformity bad
                     vec![
-                        Ln::CharacterDoes(" sits, looking out the window, doodling a sketch."),
-                        Ln::Character("I've been thinking about my place in society..."),
-                        Ln::Player("Well, then think back to your old life, what else was good and what else was bad?"),
-                        Ln::Character("I was thinking about Adèle, she fits so well into society's definition of a mother-woman."),
+                        CharacterDoes(" sits, looking out the window, doodling a sketch."),
+                        CharacterSpeaks("I've been thinking about my place in society..."),
+                        PlayerSpeaks("Well, then think back to your old life, what else was good and what else was bad?"),
+                        CharacterSpeaks("I was thinking about Adèle, she fits so well into society's definition of a mother-woman."),
                     ],
                     Prompt::FromCharacter("Adèle, everyone else, why do they all seem so complicit in effacing their personal identity to be mothers?"),
                     vec![

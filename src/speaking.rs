@@ -128,16 +128,16 @@ impl Prompt {
 
 #[derive(Clone, Copy)]
 pub enum ChatSequenceLine {
-    Player(&'static str),
+    PlayerSpeaks(&'static str),
     CharacterDoes(&'static str),
-    Character(&'static str),
+    CharacterSpeaks(&'static str),
 }
 impl ChatSequenceLine {
     fn show<T: Speaker>(&self, character_speaker: &T) {
         match self {
-            ChatSequenceLine::Character(line) => character_speaker.say(line.to_string()),
+            ChatSequenceLine::CharacterSpeaks(line) => character_speaker.say(line.to_string()),
             ChatSequenceLine::CharacterDoes(line) => character_speaker.act(line.to_string()),
-            ChatSequenceLine::Player(line) => YouSpeaker.say(line.to_string()),
+            ChatSequenceLine::PlayerSpeaks(line) => YouSpeaker.say(line.to_string()),
         };
         prompt_wait();
     }
