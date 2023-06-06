@@ -43,6 +43,8 @@ pub fn play_onboarding_conversation() {
 pub fn play_win_conversation<T: Character>(character: T) {
     YouSpeaker.say(format!("Ok, {}, it seems I have to move on to my next client. It was nice meeting you. I'm anxiously awaiting your next visit!", T::NAME));
     prompt_wait();
+    character.say(format!("It's probably best I stay at the Facility for a bit. {}", character.win_quote()));
+    prompt_wait();
     character.say(format!("Thank you! I feel like you've really helped me!"));
     prompt_wait();
     character.say(format!("I was worried it was just me who felt that society was not right for me, but now I know the {}DANGERS OF CONFORMITY{}!", STYLE_IMPORTANT, STYLE_SAY));

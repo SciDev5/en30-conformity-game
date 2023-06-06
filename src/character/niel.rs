@@ -52,6 +52,9 @@ will to pursue his passions.
         "# // (Schulman)
         .trim()
     }
+    fn win_quote(&self) -> &'static str {
+        "I'm gonna need some time to build up confidence to stand up to my dad."
+    }
     fn generate_chat_pool(&self) -> crate::game::ChatPool {
         /*
                 need to reinforce:

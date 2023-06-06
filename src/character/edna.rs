@@ -39,6 +39,9 @@ modern times that suits her.
 "# // (Chopin)
         .trim()
     }
+    fn win_quote(&self) -> &'static str {
+        "I'm starting to think I should start a new life in the world this Facility is in, where I can be free to express my passion for romance and art."
+    }
 
     fn generate_chat_pool(&self) -> ChatPool {
         /*

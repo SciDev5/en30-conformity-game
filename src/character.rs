@@ -25,6 +25,8 @@ pub trait Character: Speaker {
         }
         println!();
     }
+    /// What the character says if you win.
+    fn win_quote(&self) -> &'static str;
 
     /// Generate a list of all dialogue questions for
     /// the given character over the course of the game.

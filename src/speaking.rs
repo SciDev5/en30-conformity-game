@@ -69,14 +69,19 @@ pub trait Speaker {
     }
 }
 
-fn prompt_raw(responses: Vec<String>) -> usize {
+pub fn input_raw() -> String {
     let mut read_in;
+    read_in = String::new();
+    std::io::stdin()
+        .lock()
+        .read_line(&mut read_in)
+        .expect("Failed to read stdin");
+    read_in
+}
+
+fn prompt_raw(responses: Vec<String>) -> usize {
     let chosen = loop {
-        read_in = String::new();
-        std::io::stdin()
-            .lock()
-            .read_line(&mut read_in)
-            .expect("Failed to read stdin");
+        let read_in = input_raw();
         if let Ok(n) = usize::from_str_radix(read_in.trim(), 10) {
             if n <= responses.len() && n != 0 {
                 break n - 1;
